@@ -1,5 +1,6 @@
 package prabhat.x.spiker.videocallingapp;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +10,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sinch.android.rtc.AudioController;
 import com.sinch.android.rtc.PushPair;
@@ -42,6 +42,7 @@ public class CallScreenActivity extends BaseActivity {
     private TextView mCallDuration;
     private TextView mCallState;
     private TextView mCallerName;
+
 
     private class UpdateCallDurationTask extends TimerTask {
 
@@ -88,6 +89,7 @@ public class CallScreenActivity extends BaseActivity {
         });
 
         mCallId = getIntent().getStringExtra(SinchService.CALL_ID);
+
         if (savedInstanceState == null) {
             mCallStart = System.currentTimeMillis();
         }
@@ -221,11 +223,13 @@ public class CallScreenActivity extends BaseActivity {
         @Override
         public void onCallEnded(Call call) {
             CallEndCause cause = call.getDetails().getEndCause();
-            Log.d(TAG, "Call ended. Reason: " + cause.toString());
+            // Log.d(TAG, "Call ended. Reason: " + cause.toString());
             mAudioPlayer.stopProgressTone();
             setVolumeControlStream(AudioManager.USE_DEFAULT_STREAM_TYPE);
             String endMsg = "Call ended: " + call.getDetails().toString();
-            Toast.makeText(CallScreenActivity.this, endMsg, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(CallScreenActivity.this, BusyActivity.class);
+            // Toast.makeText(CallScreenActivity.this, endMsg, Toast.LENGTH_LONG).show();
+            startActivity(intent);
 
             endCall();
         }

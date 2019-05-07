@@ -1,4 +1,5 @@
 package prabhat.x.spiker.videocallingapp;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.sinch.android.rtc.calling.Call;
 
 public class PlaceCallActivity extends BaseActivity {
@@ -49,6 +51,7 @@ public class PlaceCallActivity extends BaseActivity {
     private void stopButtonClicked() {
         if (getSinchServiceInterface() != null) {
             getSinchServiceInterface().stopClient();
+
         }
         finish();
     }
